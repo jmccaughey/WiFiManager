@@ -81,6 +81,8 @@ void WiFiManager::addParameter(WiFiManagerParameter *p) {
 void WiFiManager::setupConfigPortal() {
   dnsServer.reset(new DNSServer());
   server.reset(new ESP8266WebServer(80));
+  httpUpdater.reset(new ESP8266HTTPUpdateServer(true));
+  httpUpdater->setup(server.get(), "/update");
 
   DEBUG_WM(F(""));
   _configPortalStart = millis();
